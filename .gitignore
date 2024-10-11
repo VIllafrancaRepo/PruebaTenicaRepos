@@ -1,0 +1,12 @@
+# Entorno virtual
+env_PruebaTenica/
+
+# Archivos temporales de Python
+__pycache__/
+*.py[cod]
+
+# Archivos de la base de datos
+db.sqlite3
+
+# Archivos de migraciones
+*/migrations/*
