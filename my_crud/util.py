@@ -17,11 +17,15 @@ def validateUser(data, tipo):
         return (1, {"status": status.HTTP_400_BAD_REQUEST, "message": "El email ya está en uso por otro usuario."})
     
     telefono = data.get('telefono')
-    if not isinstance(telefono, str):
-        return (1, {"status": status.HTTP_400_BAD_REQUEST, "message": "El campo 'telefono' debe ser una cadena de texto."})
-    
-    if not re.match(r'^\d{10}$', telefono):
-        return (1, {"status": status.HTTP_400_BAD_REQUEST, "message": "El número de teléfono debe tener exactamente 10 dígitos."})
+    if telefono:
+        if Usuario.objects.filter(telefono=telefono).exists():
+            return (1, {"status": status.HTTP_400_BAD_REQUEST, "message": "El telefono ya está en uso por otro usuario."})
+
+        if not isinstance(telefono, str):
+            return (1, {"status": status.HTTP_400_BAD_REQUEST, "message": "El campo 'telefono' debe ser una cadena de texto."})
+        
+        if not re.match(r'^\d{10}$', telefono):
+            return (1, {"status": status.HTTP_400_BAD_REQUEST, "message": "El número de teléfono debe tener exactamente 10 dígitos."})
 
     
     # Si todas las validaciones pasan, retorna un estado exitoso
